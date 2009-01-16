@@ -109,11 +109,13 @@ module Commands
       }
       $cl.add_presence_callback { |pres|
         show = if pres.type == :unavailable
-                   'unavailable'
-                 elsif pres.show == nil
-                   'available'
-                 else
-                   pres.show.to_s
+                 'unavailable'
+               elsif pres.type == :error
+                 'error'
+               elsif pres.show == nil
+                 'available'
+               else
+                 pres.show.to_s
                end
         puts "#{Color::Cyan}#{pres.from.to_s} #{Color::Magenta}#{show} #{Color::Green}#{pres.status}"
       }
@@ -240,7 +242,8 @@ quit = false
 Readline::completion_proc = Input.method(:complete)
 while not quit
   begin
-    Input::invoke Readline::readline('> ', true)
+    l = Readline::readline('> ', true)
+    Input::invoke l
   rescue SystemExit, Interrupt, SignalException
     $cl.close
     puts "#{Color::Blue}Good bye!#{Color::Reset}"
