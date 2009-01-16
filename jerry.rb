@@ -69,6 +69,7 @@ module Commands
     end
     
     def get(s)
+      s.downcase!
       constants.select { |c|
         c.downcase == "#{s}command"
       }.map { |c|
