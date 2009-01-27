@@ -1,3 +1,5 @@
+#!/usr/bin/ruby
+
 require 'readline'
 require 'xmpp4r'
 require 'xmpp4r/version'
