@@ -93,7 +93,7 @@ puts "#{Color::Green}Welcome to #{Color::Yellow}#{MUC}#{Color::Reset}"
 
 while line = Readline::readline("")
   begin
-    muc.say line
+    muc.say line if line.size >= 1
   rescue Exception => e
     puts "#{Color::Red}#{e.class}: #{e.to_s}#{Color::Reset}"
     puts "#{Color::Magenta}#{e.backtrace.join("\n")}"
