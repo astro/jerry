@@ -59,6 +59,8 @@ while nick.to_s == ''
   nick = Readline::readline('Your nick: ')
 end
 cl = Jabber::Client.new(Jabber::JID.new('collector', 'jabber.ccc.de', nick))
+Jabber::Version::SimpleResponder.new(cl, 'Astro\'s LittleMUC', '0.0',
+                                     "XMPP4R-#{Jabber::XMPP4R_VERSION} on Ruby-#{RUBY_VERSION}")
 puts "#{Color::Yellow}Connecting...#{Color::Reset}"
 cl.connect
 puts "#{Color::Yellow}Authenticating...#{Color::Reset}"
