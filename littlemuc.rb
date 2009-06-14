@@ -52,19 +52,20 @@ class Time
   end
 end
 
-MUC = 'c3d2@conference.jabber.ccc.de'
+MUC = 'c3d2@muc.hq.c3d2.de'
 
+Readline::completion_proc = lambda { |*a| [] }
 nick = nil
 while nick.to_s == ''
   nick = Readline::readline('Your nick: ')
 end
-cl = Jabber::Client.new(Jabber::JID.new('collector', 'jabber.ccc.de', nick))
+cl = Jabber::Client.new("#{nick}@anonxmpp.hq.c3d2.de/ssh chat@ssh.hq.c3d2.de")
 Jabber::Version::SimpleResponder.new(cl, 'Astro\'s LittleMUC', '0.0',
                                      "XMPP4R-#{Jabber::XMPP4R_VERSION} on Ruby-#{RUBY_VERSION}")
 puts "#{Color::Yellow}Connecting...#{Color::Reset}"
 cl.connect
 puts "#{Color::Yellow}Authenticating...#{Color::Reset}"
-cl.auth '***'
+cl.auth_anonymous
 puts "#{Color::Green}Joining room #{Color::Yellow}#{MUC}#{Color::Reset}"
 muc = Jabber::MUC::SimpleMUCClient.new(cl)
 muc.on_message { |time,nick,text|
